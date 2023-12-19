@@ -1,0 +1,30 @@
+
+Invariante de laço:
+
+ O algoritmo recebe três entrada, um vetor[0..n], o tamanho do vetor que seria a quantidade de elementos 
+presentes no vetor, ou seja, tamanho = [n + 1], e um valor v.
+ Como variável interna do algoritmo nos temos j que se inicializará com j = 0, indexando o primeiro elemento 
+do vetor, assim teremos um laço que atende a condição de j < tamanho, incrimentando j a cada interação. 
+ Ele tem como objetivo percorrer todos os elementos do vetor, e se e somente se, o elemento do vetor indexado
+por vetor[j] for igual ao valor de v, ele retorna imediatamente a posição em que o valor de v esta no vetor, 
+caso o contrário ele retorna NULL.
+
+
+Corretude do algoritmo.
+
+1º - Antes da primeira interação nós temos j = 0, indexando o primeiro elemento do vetor[0..n] que vai de 
+j = 0 até  j = n. Também atendendo a condição de interação de j = 0 enquanto j < tamanho, onde tamanho = n + 1.
+
+2º - Durante a primeira inderação, nós temos vetor[j] onde j = 0, verificando se o valor daquela posição é 
+igual ao valor de v, se for igual, o algoritmo retorna a posição de vetor[j] e encerra o laço. Caso contrário,
+j é incrimentado em 1 e o faço avança para a próxima interação. Isso se repete até que a condição de
+j < tamanho seja falsa, onde tamanho é = n + 1.
+
+3º - Após o término do laço e a condição do valor de v não estar presente em nenhuma interação de vetor[j],
+o algoritmo retorna o valor NULL e se encerra.
+
+Esses três passos provam que minha invariante de laço é correta.
+
+
+
+Complexidade: Ω(1) e O(n).
