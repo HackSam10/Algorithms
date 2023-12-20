@@ -5,8 +5,8 @@
 
 void convercao(char *string[], int numeros[], int quantidade);
 
-//void SelectionSort(int entrada[], int tamanho);
-//
+void SelectionSort(int entrada[], int tamanho);
+
 
 int main(int argc, char *argv[]){
 
@@ -26,14 +26,9 @@ puts("Erro ao alocar memória\n");
 exit(1);
 }
 
-
-
 convercao(&argv[1], entrada, tamanho);
 
-
-//SelectionSort(entrada, tamanho);
-
-
+SelectionSort(entrada, tamanho);
 
 
 for(j = 0; j < tamanho; j++){
@@ -73,12 +68,14 @@ j++;
 
 regfree(&compilacao);
 
+}
+
+
+
+void SelectionSort(int entrada[], int tamanho){
+
 
 }
 
 
-/*
-void SelectionSort(int entrada[], int tamanho){
 
-
-}*/

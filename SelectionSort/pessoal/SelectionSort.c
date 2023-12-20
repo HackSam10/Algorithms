@@ -5,8 +5,8 @@
 
 void convercao(char *string[], int numeros[], int quantidade);
 
-//void SelectionSort(int entrada[], int tamanho);
-//
+void SelectionSort(int entrada[], int tamanho);
+
 
 int main(int argc, char *argv[]){
 
@@ -31,7 +31,7 @@ exit(1);
 convercao(&argv[1], entrada, tamanho);
 
 
-//SelectionSort(entrada, tamanho);
+SelectionSort(entrada, tamanho);
 
 
 
@@ -77,8 +77,35 @@ regfree(&compilacao);
 }
 
 
-/*
+
 void SelectionSort(int entrada[], int tamanho){
 
+register int j = 0, k = 0;
+int *buffer = NULL;
+int chave = 0;
 
-}*/
+
+for(j = 0 ; j < tamanho - 1;j++){
+
+chave = entrada[j];
+
+for(k = j + 1;k < tamanho; k++){
+
+    if(chave > entrada[k]){
+    buffer = &entrada[k];    
+    chave = entrada[k];
+        }
+ }
+
+if(entrada[j] > chave){
+chave = entrada[j];
+entrada[j] = *buffer;
+*buffer = chave;
+ }
+}
+
+
+}
+
+
+
