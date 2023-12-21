@@ -74,8 +74,26 @@ regfree(&compilacao);
 
 void SelectionSort(int entrada[], int tamanho){
 
+register int j = 0, k = 0;
+int buffer = 0;
+
+for(j = 0; j < tamanho - 1; j++){
+
+
+    for(k = j + 1; k < tamanho; k++){
+    
+        if(entrada[j] > entrada[k]){
+     buffer = entrada[j];
+      entrada[j] = entrada[k];
+     entrada[k] = buffer; 
+
+            }
+        
+    }
+
 
 }
 
+}
 
 
