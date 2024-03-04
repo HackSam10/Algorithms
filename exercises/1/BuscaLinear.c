@@ -17,6 +17,7 @@ int *BuscaLinear(int vetor[], size_t tamanho, int v);
 int main(int argc, char *argv[]){
 int v = 0;
 int *retorno = NULL;
+
 if(argc != 2){
 erro;
 }
