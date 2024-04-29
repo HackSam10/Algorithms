@@ -26,5 +26,5 @@ o algoritmo retorna o valor NULL e se encerra.
 Esses três passos provam que minha invariante de laço é correta.
 
 
-
-Complexidade: Ω(1) e O(n).
+ 
+Complexidade: Ω(1) e O(n).  
