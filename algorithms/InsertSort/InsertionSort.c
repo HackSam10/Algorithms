@@ -82,7 +82,7 @@ puts("Você digitou um argumento inválido.\n");
 exit(1);
 }
 
-else numeros[j] = atoi(string[j]);
+numeros[j] = atoi(string[j]);
 
 j++;
 
