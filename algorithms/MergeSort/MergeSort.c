@@ -1,26 +1,37 @@
 #include <stdio.h>
 #include <regex.h>
 #include <stdlib.h>
-#include <string.h>
 
 
 //Function prototypes
 
-int arg_check(int argc); //check argc
+int arg_check(int argc); //check num args
 
 int *fill_array(char **input, int NumArgs); //Validates and converts input user
+
+int user_flag(char *flag); //check user flag
+
+//enums
+enum order{
+    ORDER_ERROR, ASCENDING, DESCENDING 
+};
+
 
 
 
 int main(int argc, char *argv[]){
 
-int NumArgs = 0, *array = NULL, index = 0;
-
+int NumArgs = 0, *array = NULL, index = 0, user_option = 0;
 
 NumArgs = arg_check(argc);
 array = fill_array(argv + 2, NumArgs); 
+user_option = user_flag(argv[1]);
 
-//verificar a flag
+if(!user_option){
+   free(array);
+   return 1;
+}
+
 
 //deselvolver o algoritmo
 
@@ -40,7 +51,7 @@ return 0;
 
 
 
-//check argc
+//check num args
 int arg_check(int argc){
 
 int NumArg = 0;    
@@ -54,7 +65,7 @@ return NumArg = argc - 2;
 }
 
 
-
+//Validates and converts input user
 int *fill_array(char **input, int NumArgs){
 
 int *buffer = NULL, index = 0, status = 0;
@@ -84,4 +95,33 @@ return buffer;
 }
 
 
+//check user flag
+int user_flag(char *flag){
 
+int key = 0;
+
+switch(*flag){
+
+    case 'A':
+    case 'a':
+    case 'C':
+    case 'c': {
+              key = ASCENDING;
+              break;
+              }
+
+    case 'D':
+    case 'd': {
+              key = DESCENDING;
+              break;
+              }
+    
+    default: {
+             puts("Invalid Flag");
+             key = ORDER_ERROR;
+             break;
+             }
+    }
+
+return key;
+} 
