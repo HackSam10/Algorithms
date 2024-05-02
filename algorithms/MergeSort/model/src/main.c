@@ -24,8 +24,9 @@ int main(int argc, char *argv[]){
 int NumArgs = 0, *array = NULL, index = 0, user_option = 0;
 
 NumArgs = arg_check(argc);
+user_option = user_flag(argv[1]); //Vamos adicionar duas novas flags para ordenar numeros aleatórios para teste de carga
+
 array = fill_array(argv + 2, NumArgs); 
-user_option = user_flag(argv[1]);
 
 if(!user_option){
    free(array);
