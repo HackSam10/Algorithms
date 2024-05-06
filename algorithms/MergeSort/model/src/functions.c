@@ -13,14 +13,14 @@ long int *input_parsing(char **input, int elements_size); //Validates and conver
 //check num args
 int arg_check(int argc){
 
-int elements_size = 0;
+int NumArgs = 0;
 
 if(argc < 3){
 puts("Insufficient Arguments");
 exit(1);
 }
 
-return elements_size = argc - 2;
+return NumArgs = argc - 2;
 }
 
 
@@ -30,7 +30,7 @@ return elements_size = argc - 2;
 long int *input_parsing(char **input, int elements_size){
 
 long int *buffer = NULL;
-int index = 0,status = 0;
+int index = 0, status = 0;
 char reg_exp[] = "^[0-9]{1,9}$";
 regex_t cmp = {0};
 
@@ -62,14 +62,14 @@ return buffer;
 //check user flag
 order_mode user_flag(char *input){
 
-typedef struct token{
+struct token{
     char *token;
     order_mode value;
-}token;
+};
 
 int index = 0, flag_size = 10;
 
-token flag[] = {{"A", ASCENDING}, {"a", ASCENDING},
+struct token flag[] = {{"A", ASCENDING}, {"a", ASCENDING},
                 {"D", DESCENDING}, {"d", DESCENDING},
                 {"R", RANDOM_ASCENDING}, {"r", RANDOM_ASCENDING},
                 {"ra", RANDOM_ASCENDING}, {"RA", RANDOM_ASCENDING},  
@@ -87,8 +87,8 @@ return ORDER_ERROR;
 
 
 
-
-long int *array_build(char **input, int *elements_size, order_mode flag){
+//Builds an array based on user input
+long int *array_build(char **input, long int *elements_size, order_mode flag){
 
 long int *ptr_buffer = NULL, array_size = 0, counter = 0;
 
@@ -107,20 +107,46 @@ exit(1);
     }
 
 for(counter = 0; counter < array_size; couter++){
-srand(times(NULL) + (counter / 2));
+srand(times(NULL) + ((counter + 1) / 2));
 ptr_buffer[counter] = rand() % array_size;
  }
 
+*elements_size = array_size;
 return ptr_buffer;
 }
 
 
 
 
+void print_array(long int *array, long int array_size, long int exec_time, bool random_flag){
 
+long int index = 0;
 
+if(!random_flag){
+for(index = 0; index < array_size; index++){
+printf("%li ", array[index]);
+    }
+putchar(10);
+}
 
+else{
+    if(array_size > 4){
+printf("%li, %li, %li...%li, %li\n", array[0], array[1], array[2],
+                                      array[elements_size - 2], 
+                                      array[elements_size - 1]);
+    }
+    else{
 
+    for(index = 0; index < array_size; index++){
+printf("%li ", array[index]);
+    }
 
+putchar(10);
+        }
+
+printf("The algorithm execution time is: %d\n", ); //desenvolver a formatação do print do time
+    }
+
+}
 
 

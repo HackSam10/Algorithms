@@ -14,7 +14,9 @@ int arg_check(int argc); //check num args
 
 order_mode user_flag(char *input); //check user flag
 
-long int *array_build(char **input, int *elements_size, order_mode flag); //Build array
+long int *array_build(char **input, long int *elements_size, order_mode flag); //Builds an array based on user input
+
+void print_array(long int *array, long int array_size, long int exec_time, bool random_flag);
 
 
 #endif
