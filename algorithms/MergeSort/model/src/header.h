@@ -1,5 +1,6 @@
 #ifndef HEADER_H
 #define HEADER_H
+#include <stdbool.h>
 
 //enums
 typedef enum order_mode{

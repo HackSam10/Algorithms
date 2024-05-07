@@ -31,7 +31,7 @@ long int *input_parsing(char **input, int elements_size){
 
 long int *buffer = NULL;
 int index = 0, status = 0;
-char reg_exp[] = "^[0-9]{1,9}$";
+char reg_exp[] = "^[0-9]{1,9}$"; //alterar para validar o tamanho de um long int
 regex_t cmp = {0};
 
 if(!(buffer = (long int *)calloc(elements_size, sizeof(long int)))){
@@ -81,7 +81,7 @@ for(index = 0; index < flag_size; index++){
     if(!(strcmp(flag[index].token, input))) return flag[index].value;
 }
 
-
+puts("Invalid Flag!");
 return ORDER_ERROR;
 } 
 
@@ -92,7 +92,7 @@ long int *array_build(char **input, long int *elements_size, bool random_flag){
 
 long int *ptr_buffer = NULL, array_size = 0, counter = 0;
 
-if(!flag) return input_parsing(input, *elements_size);
+if(!random_flag) return input_parsing(input, *elements_size);
 
 
 ptr_buffer = input_parsing(input, 1);
@@ -104,9 +104,9 @@ puts("Error Allocating Memory");
 exit(1);
     }
 
-for(counter = 0; counter < array_size; couter++){
-srand(times(NULL) + ((counter + 1) / 2));
-ptr_buffer[counter] = rand() % array_size;
+for(counter = 0; counter < array_size; counter++){
+srand(time(NULL) + ((counter + 1) / 2));
+ptr_buffer[counter] = rand() % 101;
  }
 
 *elements_size = array_size;
@@ -116,7 +116,7 @@ return ptr_buffer;
 
 
 
-void print_array(long int *array, long int array_size, long int exec_time, bool random_flag){
+void print_array(long int *array, long int array_size, double exec_time, bool random_flag){
 
 long int index = 0, minutes = 0, seconds = 0, milliseconds = 0;
 
@@ -130,8 +130,8 @@ putchar(10);
 else{
     if(array_size > 4){
 printf("%li, %li, %li...%li, %li\n", array[0], array[1], array[2],
-                                      array[elements_size - 2], 
-                                      array[elements_size - 1]);
+                                      array[array_size - 2], 
+                                      array[array_size - 1]);
     }
     else{
 
@@ -148,7 +148,7 @@ minutes = (long int)exec_time / 60;
 seconds = (long int)exec_time % 60;
 milliseconds = (long int)((exec_time - (minutes * 60 + seconds)) * 1000);
 
-printf("The algorithm execution time is:\t %li min : %li sec : %li millisec\n", minutes, seconds, milliseconds); 
+printf("The algorithm execution time is:\t %li min : %li sec : %li ms\n", minutes, seconds, milliseconds); 
     }
 
 }
