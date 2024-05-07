@@ -88,14 +88,12 @@ return ORDER_ERROR;
 
 
 //Builds an array based on user input
-long int *array_build(char **input, long int *elements_size, order_mode flag){
+long int *array_build(char **input, long int *elements_size, bool random_flag){
 
 long int *ptr_buffer = NULL, array_size = 0, counter = 0;
 
-if(flag == ASCENDING || flag == DESCENDING){
+if(!flag) return input_parsing(input, *elements_size);
 
-return input_parsing(input, *elements_size);
-}
 
 ptr_buffer = input_parsing(input, 1);
 array_size = *ptr_buffer;
@@ -120,7 +118,7 @@ return ptr_buffer;
 
 void print_array(long int *array, long int array_size, long int exec_time, bool random_flag){
 
-long int index = 0;
+long int index = 0, minutes = 0, seconds = 0, milliseconds = 0;
 
 if(!random_flag){
 for(index = 0; index < array_size; index++){
@@ -144,7 +142,13 @@ printf("%li ", array[index]);
 putchar(10);
         }
 
-printf("The algorithm execution time is: %d\n", ); //desenvolver a formatação do print do time
+
+
+minutes = (long int)exec_time / 60;
+seconds = (long int)exec_time % 60;
+milliseconds = (long int)((exec_time - (minutes * 60 + seconds)) * 1000);
+
+printf("The algorithm execution time is:\t %li min : %li sec : %li millisec\n", minutes, seconds, milliseconds); 
     }
 
 }
