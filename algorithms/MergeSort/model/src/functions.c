@@ -31,7 +31,7 @@ long int *input_parsing(char **input, int elements_size){
 
 long int *buffer = NULL;
 int index = 0, status = 0;
-char reg_exp[] = "^[0-9]{1,9}$"; //alterar para validar o tamanho de um long int
+char reg_exp[] = "^[0-9]{1,18}$"; //alterar para validar o tamanho de um long int
 regex_t cmp = {0};
 
 if(!(buffer = (long int *)calloc(elements_size, sizeof(long int)))){
