@@ -154,3 +154,22 @@ printf("The algorithm execution time is:\t %li min : %li sec : %li ms\n", minute
 }
 
 
+
+
+
+
+void create_random_number(long int *array, long int start, long int end){
+
+long int aux_recursive = 0;
+
+        if(start < end){
+                       aux_recursive = end / 2;
+                       create_random_number(array, start, aux_recursive);
+                       procedimento_assincrono(array, start, aux_recursive);
+
+                       create_random_number(array, aux_recursive + 1, end);
+                       procedimento_assincrono(array, aux_recursive, end);
+                       
+                       }
+
+}
