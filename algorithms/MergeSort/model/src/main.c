@@ -21,13 +21,19 @@ if(!user_option) return 1;
 random_flag = user_option == RANDOM_ASCENDING || user_option == RANDOM_DESCENDING;
 ascending_flag = user_option == ASCENDING || user_option == RANDOM_ASCENDING;
 
+if(random_flag) puts("Creating array, wait...");
+
+
 array = array_build(argv + 2, &elements_size, random_flag);
 
 
 //calls the algorithm and counts its execution time
 if(random_flag){
+system("clear");
+printf("%li random numbers were created: \n", elements_size);
+print_random(array, elements_size);
+printf("sorting...\n\n\n");
 clock_gettime(CLOCK_MONOTONIC_RAW, &time_start);
-puts("Go");
 
 
 //call function here
@@ -44,7 +50,8 @@ else{
 
 }
 
-
+if(ascending_flag) puts("The array in ascending order is:");
+else puts("The array in descending order is:");
 
 print_array(array, elements_size, exec_time, random_flag);
 free(array);

@@ -19,5 +19,6 @@ long int *array_build(char **input, long int *elements_size, bool random_flag); 
 
 void print_array(long int *array, long int array_size, double exec_time, bool random_flag);
 
+void print_random(long int *array, long int array_size); //print array random
 
 #endif

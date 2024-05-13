@@ -1,7 +1,10 @@
-all: main.o function.o algorithm.o
+ALGORITHM_FILE = algorithm
 
-	gcc main.o function.o algorithm.o -o algorithm
+all: main.o function.o $(ALGORITHM_FILE).o
+
+	gcc main.o function.o $(ALGORITHM_FILE).o -o $(ALGORITHM_FILE)
 	rm -f *.o
+	clear
 
 
 main.o: src/header.h
@@ -10,6 +13,5 @@ main.o: src/header.h
 function.o: src/header.h
 		gcc -c src/functions.c -o function.o
 
-#edit here
-algorith.o: src/header.h
-		gcc -c algoritm.c -o algorithm.o 
+$(ALGORITHM_FILE).o: src/header.h
+		gcc -c $(ALGORITHM_FILE).c -o $(ALGORITHM_FILE).o 

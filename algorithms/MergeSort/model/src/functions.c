@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <pthread.h>
 #include "header.h"
 
 
@@ -128,21 +129,8 @@ putchar(10);
 }
 
 else{
-    if(array_size > 4){
-printf("%li, %li, %li...%li, %li\n", array[0], array[1], array[2],
-                                      array[array_size - 2], 
-                                      array[array_size - 1]);
-    }
-    else{
-
-    for(index = 0; index < array_size; index++){
-printf("%li ", array[index]);
-    }
-
-putchar(10);
-        }
-
-
+    
+print_random(array, array_size);
 
 minutes = (long int)exec_time / 60;
 seconds = (long int)exec_time % 60;
@@ -153,8 +141,25 @@ printf("The algorithm execution time is:\t %li min : %li sec : %li ms\n", minute
 
 }
 
+//printf array random
+void print_random(long int *array, long int array_size){
 
+long int index = 0;
 
+if(array_size > 4){
+printf("%li, %li, %li...%li, %li.\n", array[0], array[1], array[2],
+                                      array[array_size - 2], 
+                                      array[array_size - 1]);
+    }
+    else{
+
+    for(index = 0; index < array_size; index++){
+printf("%li ", array[index]);
+    }
+
+putchar(10);
+        }    
+}
 
 /*
 
