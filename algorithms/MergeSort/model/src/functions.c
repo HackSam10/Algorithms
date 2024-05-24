@@ -105,10 +105,15 @@ puts("Error Allocating Memory");
 exit(1);
     }
 
+//chamar nova função aqui
+create_random(ptr_buffer, array_size);
+
+/*
 for(counter = 0; counter < array_size; counter++){
 srand(time(NULL) + ((counter + 1) / 2));
 ptr_buffer[counter] = rand() % 101;
  }
+*/
 
 *elements_size = array_size;
 return ptr_buffer;
@@ -161,22 +166,18 @@ putchar(10);
         }    
 }
 
-/*
 
-void create_random_number(long int *array, long int start, long int end){
 
-long int aux_recursive = 0;
 
-        if(start < end){
-                       aux_recursive = end / 2;
-                       create_random_number(array, start, aux_recursive);
+bool create_random(long int *array, long int size){
 
-                       create_random_number(array, aux_recursive + 1, end);
+pthread_t *threads = NULL;
 
-                       procedimento_assincrono(array, start, aux_recursive);
-                       procedimento_assincrono(array, aux_recursive, end);
-                       
-                       }
+
+if(!(threads = (pthread_t *)calloc(100, sizeof(pthread_t)))){puts("Error Alocation Memory to threads"); exit(1);}
+
+
 
 }
-*/
+
+
