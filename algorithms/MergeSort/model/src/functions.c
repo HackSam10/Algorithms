@@ -209,16 +209,35 @@ config_thread_loop calculate_thread_loop(const long int number, const int max_th
 
 config_thread_loop config = {0};
 long int number_random_per_thread = 0, number_last_thread = 0;
-long int buffer_calculator = 0;
+long int buffer_calculator = 0, buffer_number = 0, buffer_start = 0, buffer_end = 0;
+long int save_number = 0;
+int index = 0;
 
 buffer_calculator = number / max_thread;
+buffer_number = number;
 
 //só vou operar com o numero maximo de threads, quando for de 1 milhão pra cima
 //caso contrário, farei um contador de 0 a 10.0000 para cada thread em um loop
 //fazendo que apenas uma fração do valor maximo de threads seja usado em um limite de 10.000 elementos
-if(buffer_calculator < 10000){
+if(buffer_calculator <= 10000){
 
+    for(index = 0, buffer_start = 0; 
+        buffer_number > 0;
+        index++, buffer_start = buffer_end){
 
+        save_number = buffer_bumber;
+        buffer_number -= 10000;
+
+        if(buffer_number > 0) buffer_end = 10000;
+        else buffer_end = save_number;
+
+        config.args[index].start = buffer_start;
+        config.args[index].end = buffer_end;
+        config.max_thread++;
+    
+    
+    }
+    
 }
 
 
