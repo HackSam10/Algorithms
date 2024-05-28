@@ -14,8 +14,6 @@ typedef struct args_thread{
 
 typedef struct config_thread_loop{
     int max_thread;
-    long int number_random_per_thread; //talvez isso não seja nescessário
-    long int number_last_thread; //talvez isso não seja nescessário
     args_thread *args;
 }config_thread_loop;
 
@@ -26,7 +24,7 @@ long int *input_parsing(char **input, int elements_size); //Validates and conver
 
 bool create_random(long int *array, long int size);
 
-config_thread_loop calculate_thread_loop(const long int number, const int max_thread);
+config_thread_loop calculate_thread_loop(const long int number, const int max_thread, long int *array);
 
 //check num args
 int arg_check(int argc){
@@ -193,11 +191,11 @@ pthread_t threads[MAX_THREAD] = {0};
 config_thread_loop config = {0};
 
 
-config = calculate_thread_loop(size, MAX_THREAD);
+config = calculate_thread_loop(size, MAX_THREAD, array);
 
 
 
-
+free(config.args);
 }
 
 
@@ -205,41 +203,52 @@ config = calculate_thread_loop(size, MAX_THREAD);
 
 
 
-config_thread_loop calculate_thread_loop(const long int number, const int max_thread){
+config_thread_loop calculate_thread_loop(const long int number, const int max_thread, long int *array){
 
 config_thread_loop config = {0};
-long int number_random_per_thread = 0, number_last_thread = 0;
-long int buffer_calculator = 0, buffer_number = 0, buffer_start = 0, buffer_end = 0;
-long int save_number = 0;
+const int number_per_thread = 10000;
+long int buffer_calculator = 0, buffer_number = 0, save_number = 0, buffer_start = 0, buffer_end = 0;
+long int resto = 0;
 int index = 0;
 
 buffer_calculator = number / max_thread;
 buffer_number = number;
 
-//só vou operar com o numero maximo de threads, quando for de 1 milhão pra cima
-//caso contrário, farei um contador de 0 a 10.0000 para cada thread em um loop
-//fazendo que apenas uma fração do valor maximo de threads seja usado em um limite de 10.000 elementos
-if(buffer_calculator <= 10000){
+if(!(config.args = (args_thread *)calloc(max_thread, sizeof(args_thread)))){
+puts("Error Allocating Memory");
+exit(1);
+}
 
-    for(index = 0, buffer_start = 0; 
+
+if(buffer_calculator <= number_per_thread){
+
+    for(index = 0, buffer_start = 0, buffer_end = 0; 
         buffer_number > 0;
         index++, buffer_start = buffer_end){
 
-        save_number = buffer_bumber;
-        buffer_number -= 10000;
+        save_number = buffer_number;
+        buffer_number -= number_per_thread;
 
-        if(buffer_number > 0) buffer_end = 10000;
-        else buffer_end = save_number;
+        if(buffer_number > 0) buffer_end += number_per_thread;
+        else buffer_end += save_number;
 
         config.args[index].start = buffer_start;
         config.args[index].end = buffer_end;
+        config.args[index].array = array;
         config.max_thread++;
-    
-    
     }
     
 }
 
+else{
+
+
+for(index = 0; index < max_thread)
+
+if((resto = number % max_thread)){}
+
+
+}
 
 
 }
