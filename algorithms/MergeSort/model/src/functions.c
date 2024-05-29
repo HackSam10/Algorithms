@@ -243,9 +243,26 @@ if(buffer_calculator <= number_per_thread){
 else{
 
 
-for(index = 0; index < max_thread)
+for(index = 0, buffer_start = 0, buffer_end = buffer_calculator;
+    index < max_thread;
+    index++){
 
-if((resto = number % max_thread)){}
+
+        config.args[index].start = buffer_start;
+        config.args[index].end = buffer_end;
+        config.args[index].array = array;
+        config.max_thread++;
+
+
+        buffer_start = buffer_end;
+        buffer_end += buffer_calculator;
+    }
+
+if((resto = number % max_thread)){
+
+   config.args[index].end = buffer_end;
+
+}
 
 
 }
