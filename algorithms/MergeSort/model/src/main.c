@@ -6,7 +6,7 @@
 
 
 
-const int MAX_THREAD = 24; //Define max thread
+const int MAX_THREAD = 1; //Define max thread
 const int NUMBERS_PER_THREAD = 10000; //Defines a minimum number of random numbers created by each thread
 
 
@@ -30,7 +30,10 @@ ascending_flag = user_option == ASCENDING || user_option == RANDOM_ASCENDING;
 if(random_flag) puts("Creating array, wait...");
 
 
+clock_gettime(CLOCK_MONOTONIC_RAW, &time_start); //deletar
 array = array_build(argv + 2, &elements_size, random_flag);
+clock_gettime(CLOCK_MONOTONIC_RAW, &time_end); //deletar
+exec_time = (time_end.tv_sec - time_start.tv_sec) + ((time_end.tv_nsec - time_start.tv_nsec) / 1000000000.0); //deletar
 
 //calls the algorithm and counts its execution time
 if(random_flag){
@@ -38,14 +41,14 @@ system("clear");
 printf("%li random numbers were created: \n", elements_size);
 print_random(array, elements_size);
 printf("sorting...\n\n\n");
-clock_gettime(CLOCK_MONOTONIC_RAW, &time_start);
+//clock_gettime(CLOCK_MONOTONIC_RAW, &time_start);
 
 
 //call function here
 
 
-clock_gettime(CLOCK_MONOTONIC_RAW, &time_end);
-exec_time = (time_end.tv_sec - time_start.tv_sec) + ((time_end.tv_nsec - time_start.tv_nsec) / 1000000000.0);
+//clock_gettime(CLOCK_MONOTONIC_RAW, &time_end);
+//exec_time = (time_end.tv_sec - time_start.tv_sec) + ((time_end.tv_nsec - time_start.tv_nsec) / 1000000000.0);
 }
 
 

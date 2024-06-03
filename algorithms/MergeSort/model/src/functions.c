@@ -274,6 +274,8 @@ void *routines_threads(void *args){
 args_thread *ptr_args = (args_thread *)args;
 long int index = 0;
 
+printf("Criando do ponto %li até o %li\n", ptr_args->start, ptr_args->end);
+
 for(index = ptr_args->start; index < ptr_args->end; index++){
 
 srand(time(NULL) + ((index + 1) / 2));
