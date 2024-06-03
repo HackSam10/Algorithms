@@ -6,6 +6,12 @@
 
 
 
+const int MAX_THREAD = 24; //Define max thread
+const int NUMBERS_PER_THREAD = 10000; //Defines a minimum number of random numbers created by each thread
+
+
+
+
 int main(int argc, char *argv[]){
 
 long int *array = NULL, elements_size = 0, index = 0;

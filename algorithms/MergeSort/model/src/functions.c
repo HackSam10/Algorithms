@@ -49,7 +49,7 @@ long int *input_parsing(char **input, int elements_size){
 
 long int *buffer = NULL;
 int index = 0, status = 0;
-char reg_exp[] = "^[0-9]{1,12}$"; //alterar para validar o tamanho de um long int
+char reg_exp[] = "^[0-9]{1,10}$"; 
 regex_t cmp = {0};
 
 if(!(buffer = (long int *)calloc(elements_size, sizeof(long int)))){
@@ -180,7 +180,6 @@ putchar(10);
 
 bool create_random(long int *array, long int size){
 
-int MAX_THREAD = 100;
 int counter = 0;
 pthread_t threads[MAX_THREAD];
 config_thread_loop config = {0};
@@ -210,7 +209,6 @@ return 0;
 config_thread_loop calculate_thread_loop(const long int number, const int max_thread, long int *array){
 
 config_thread_loop config = {0};
-const int number_per_thread = 10000;
 long int buffer_calculator = 0, buffer_number = 0, save_number = 0, buffer_start = 0, buffer_end = 0;
 long int remainder = 0;
 int index = 0;
@@ -224,16 +222,16 @@ exit(1);
 }
 
 
-if(buffer_calculator <= number_per_thread){
+if(buffer_calculator <= NUMBERS_PER_THREAD){
 
     for(index = 0, buffer_start = 0, buffer_end = 0; 
         buffer_number > 0;
         index++, buffer_start = buffer_end){
 
         save_number = buffer_number;
-        buffer_number -= number_per_thread;
+        buffer_number -= NUMBERS_PER_THREAD;
 
-        if(buffer_number > 0) buffer_end += number_per_thread;
+        if(buffer_number > 0) buffer_end += NUMBERS_PER_THREAD;
         else buffer_end += save_number;
 
         config.args[index].start = buffer_start;
@@ -280,7 +278,7 @@ for(index = ptr_args->start; index < ptr_args->end; index++){
 
 srand(time(NULL) + ((index + 1) / 2));
 
-ptr_args->array[index] = rand() % 10000;
+ptr_args->array[index] = rand() % 100000;
 
 }
 

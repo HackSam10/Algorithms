@@ -2,6 +2,11 @@
 #define HEADER_H
 #include <stdbool.h>
 
+
+//const
+extern const int MAX_THREAD;
+extern const int NUMBERS_PER_THREAD;
+
 //enums
 typedef enum order_mode{
     ORDER_ERROR, ASCENDING, DESCENDING, RANDOM_ASCENDING, RANDOM_DESCENDING
