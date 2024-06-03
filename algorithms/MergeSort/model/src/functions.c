@@ -26,6 +26,8 @@ bool create_random(long int *array, long int size);
 
 config_thread_loop calculate_thread_loop(const long int number, const int max_thread, long int *array);
 
+void *routines_threads(void *args);
+
 //check num args
 int arg_check(int argc){
 
@@ -120,15 +122,7 @@ puts("Error Allocating Memory");
 exit(1);
     }
 
-//chamar nova função aqui
 create_random(ptr_buffer, array_size);
-
-/*
-for(counter = 0; counter < array_size; counter++){
-srand(time(NULL) + ((counter + 1) / 2));
-ptr_buffer[counter] = rand() % 101;
- }
-*/
 
 *elements_size = array_size;
 return ptr_buffer;
@@ -186,29 +180,39 @@ putchar(10);
 
 bool create_random(long int *array, long int size){
 
-int MAX_THREAD = 101;
-pthread_t threads[MAX_THREAD] = {0};
+int MAX_THREAD = 100;
+int counter = 0;
+pthread_t threads[MAX_THREAD];
 config_thread_loop config = {0};
 
 
 config = calculate_thread_loop(size, MAX_THREAD, array);
 
+for(counter = 0; counter < config.max_thread; counter++){
 
+    pthread_create(&threads[counter], NULL, routines_threads, (void *)&config.args[counter]);
+}
+
+
+for(counter = 0; counter < config.max_thread; counter++){
+    pthread_join(threads[counter] , NULL);
+}
 
 free(config.args);
+return 0;
 }
 
 
 
 
 
-
+//calculates and sets threads arguments
 config_thread_loop calculate_thread_loop(const long int number, const int max_thread, long int *array){
 
 config_thread_loop config = {0};
 const int number_per_thread = 10000;
 long int buffer_calculator = 0, buffer_number = 0, save_number = 0, buffer_start = 0, buffer_end = 0;
-long int resto = 0;
+long int remainder = 0;
 int index = 0;
 
 buffer_calculator = number / max_thread;
@@ -237,42 +241,51 @@ if(buffer_calculator <= number_per_thread){
         config.args[index].array = array;
         config.max_thread++;
     }
-    
 }
 
 else{
 
-
 for(index = 0, buffer_start = 0, buffer_end = buffer_calculator;
     index < max_thread;
     index++){
-
 
         config.args[index].start = buffer_start;
         config.args[index].end = buffer_end;
         config.args[index].array = array;
         config.max_thread++;
 
-
         buffer_start = buffer_end;
         buffer_end += buffer_calculator;
+         }
+
+if((remainder = number % max_thread)){
+
+   index--;
+   config.args[index].end += remainder;
+
     }
-
-if((resto = number % max_thread)){
-
-   config.args[index].end = buffer_end;
-
 }
-
-
-}
-
-
+return config;
 }
 
 
 
 
+void *routines_threads(void *args){
+
+args_thread *ptr_args = (args_thread *)args;
+long int index = 0;
+
+for(index = ptr_args->start; index < ptr_args->end; index++){
+
+srand(time(NULL) + ((index + 1) / 2));
+
+ptr_args->array[index] = rand() % 10000;
+
+}
+
+return NULL;
+}
 
 
 

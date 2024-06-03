@@ -26,7 +26,6 @@ if(random_flag) puts("Creating array, wait...");
 
 array = array_build(argv + 2, &elements_size, random_flag);
 
-
 //calls the algorithm and counts its execution time
 if(random_flag){
 system("clear");

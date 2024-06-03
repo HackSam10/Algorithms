@@ -2,7 +2,7 @@ ALGORITHM_FILE = algorithm
 
 all: main.o function.o $(ALGORITHM_FILE).o
 
-	gcc main.o function.o $(ALGORITHM_FILE).o -o $(ALGORITHM_FILE)
+	gcc main.o function.o $(ALGORITHM_FILE).o -pthread -o $(ALGORITHM_FILE)
 	rm -f *.o
 	clear
 
