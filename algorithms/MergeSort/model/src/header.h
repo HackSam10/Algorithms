@@ -3,9 +3,6 @@
 #include <stdbool.h>
 
 
-//const
-extern const int MAX_THREAD;
-extern const int NUMBERS_PER_THREAD;
 
 //enums
 typedef enum order_mode{

@@ -3,30 +3,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <pthread.h>
 #include "header.h"
-
-
-typedef struct args_thread{
-   long int *array;
-   long int start, end; 
-}args_thread;
-
-typedef struct config_thread_loop{
-    int max_thread;
-    args_thread *args;
-}config_thread_loop;
-
 
 
 
 long int *input_parsing(char **input, int elements_size); //Validates and converts input user
 
-bool create_random(long int *array, long int size);
 
-config_thread_loop calculate_thread_loop(const long int number, const int max_thread, long int *array);
 
-void *routines_threads(void *args);
 
 //check num args
 int arg_check(int argc){
@@ -122,7 +106,14 @@ puts("Error Allocating Memory");
 exit(1);
     }
 
-create_random(ptr_buffer, array_size);
+for(counter = 0; counter < array_size; counter++){
+
+srand(time(NULL) + ((counter + 1) / 2));
+
+ptr_buffer[counter] = rand() % 100000;
+
+}
+
 
 *elements_size = array_size;
 return ptr_buffer;
@@ -174,120 +165,3 @@ printf("%li ", array[index]);
 putchar(10);
         }    
 }
-
-
-
-
-bool create_random(long int *array, long int size){
-
-int counter = 0;
-pthread_t threads[MAX_THREAD];
-config_thread_loop config = {0};
-
-
-config = calculate_thread_loop(size, MAX_THREAD, array);
-
-for(counter = 0; counter < config.max_thread; counter++){
-
-    pthread_create(&threads[counter], NULL, routines_threads, (void *)&config.args[counter]);
-}
-
-
-for(counter = 0; counter < config.max_thread; counter++){
-    pthread_join(threads[counter] , NULL);
-}
-
-free(config.args);
-return 0;
-}
-
-
-
-
-
-//calculates and sets threads arguments
-config_thread_loop calculate_thread_loop(const long int number, const int max_thread, long int *array){
-
-config_thread_loop config = {0};
-long int buffer_calculator = 0, buffer_number = 0, save_number = 0, buffer_start = 0, buffer_end = 0;
-long int remainder = 0;
-int index = 0;
-
-buffer_calculator = number / max_thread;
-buffer_number = number;
-
-if(!(config.args = (args_thread *)calloc(max_thread, sizeof(args_thread)))){
-puts("Error Allocating Memory");
-exit(1);
-}
-
-
-if(buffer_calculator <= NUMBERS_PER_THREAD){
-
-    for(index = 0, buffer_start = 0, buffer_end = 0; 
-        buffer_number > 0;
-        index++, buffer_start = buffer_end){
-
-        save_number = buffer_number;
-        buffer_number -= NUMBERS_PER_THREAD;
-
-        if(buffer_number > 0) buffer_end += NUMBERS_PER_THREAD;
-        else buffer_end += save_number;
-
-        config.args[index].start = buffer_start;
-        config.args[index].end = buffer_end;
-        config.args[index].array = array;
-        config.max_thread++;
-    }
-}
-
-else{
-
-for(index = 0, buffer_start = 0, buffer_end = buffer_calculator;
-    index < max_thread;
-    index++){
-
-        config.args[index].start = buffer_start;
-        config.args[index].end = buffer_end;
-        config.args[index].array = array;
-        config.max_thread++;
-
-        buffer_start = buffer_end;
-        buffer_end += buffer_calculator;
-         }
-
-if((remainder = number % max_thread)){
-
-   index--;
-   config.args[index].end += remainder;
-
-    }
-}
-return config;
-}
-
-
-
-
-void *routines_threads(void *args){
-
-args_thread *ptr_args = (args_thread *)args;
-long int index = 0;
-
-printf("Criando do ponto %li até o %li\n", ptr_args->start, ptr_args->end);
-
-for(index = ptr_args->start; index < ptr_args->end; index++){
-
-srand(time(NULL) + ((index + 1) / 2));
-
-ptr_args->array[index] = rand() % 100000;
-
-}
-
-return NULL;
-}
-
-
-
-
-
