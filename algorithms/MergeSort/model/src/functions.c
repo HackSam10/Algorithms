@@ -110,8 +110,9 @@ for(counter = 0; counter < array_size; counter++){
 
 srand(time(NULL) + ((counter + 1) / 2));
 
+if(ptr_buffer[counter ] > 0){
 ptr_buffer[counter] = rand() % 100000;
-
+    }
 }
 
 
